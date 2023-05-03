@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  deletionGracePeriodSeconds: 10
+  namespace: default
+  name: first-pod
+  labels:
+    app: web
+    tier: frontend    
+spec:
+  containers:
+  - image: nginx
+    name: first-con
+    env:
+    - name: USER
+      value: ram
+    - name: PASSWORD
+      value: p@ssw0rd
+  - image: ubuntu
+    name: second-con
+    command: ["/bin/bash"]
+    args: ["-c", "sleep 500"]
+    env:
+    - name: USER
+      value: hari
+    - name: PASSWORD
+      value: p@ssw0rd
+  terminationGracePeriodSeconds: 10

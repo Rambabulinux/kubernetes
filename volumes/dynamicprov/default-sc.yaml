@@ -1,0 +1,7 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: managed-nfs-storage1            #While creating PVC's we mentions this storage class name
+provisioner: example.com/nfs
+parameters:
+  archiveOnDelete: "true"

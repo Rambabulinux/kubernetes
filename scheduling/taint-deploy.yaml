@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: taint-deploy
+  name: taint-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taint-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: taint-deploy
+    spec:
+      tolerations:
+      - key: "key2"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}
+

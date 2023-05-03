@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readinessprobe
+  labels:
+    app: readinessprobe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readinessprobe
+  template:
+    metadata:
+      labels:
+        app: readinessprobe
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        args:
+          - /bin/bash
+          - -c
+          - sleep 60; touch hello.txt; sleep 200;
+        readinessProbe:
+          exec:
+            command:
+              - cat
+              - hello.txt
+          initialDelaySeconds: 15   
+          periodSeconds: 3
+          successThreshold: 1

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  namespace: default
+  labels:
+    app: nginx-rs
+    tier1: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+#      tier1: frontend
+    matchExpressions:
+      - {key: tier1, operator: In, values: [frontend]}
+#      - {key: app, operator: In, values: [nginx]}
+  template:
+    metadata:
+      name: poddemo
+      deletionGracePeriodSeconds: 60
+      labels:
+        app: nginx
+        tier1: frontend
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
+        ports:
+        - containerPort: 80

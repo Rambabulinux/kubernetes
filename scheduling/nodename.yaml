@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-rs
+  namespace: default
+  labels:
+    app: nginx-rs
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: poddemo
+      labels:
+        app: nginx
+    spec:
+#      nodeName: node01
+      nodeSelector:
+        disktype: ssd
+      containers:
+      - name: nginx-container
+        image: nginx
+        ports:
+        - containerPort: 80

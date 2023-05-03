@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostpath-deploy
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+      - name: test-volume
+        hostPath:
+          path: /data
+      containers:
+      - image: nginx
+        name: test-container
+        volumeMounts:
+        - name: test-volume
+          mountPath: /rambabu
